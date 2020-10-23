@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>All Genres Page</h1>
+<p>Genres Registered in the MovieOn:</p>
+<ul>
+{% for genre in genres %}
+    <li><strong>{{ genre }}</strong> - <a href="{% url 'edit_genre' genre.id %}" >Edit</a> - <a href="{% url 'delete_genre' genre.id %}" >Delete</a></li>
+{% endfor %}
+</ul>
+<p>
+    <a href="{% url 'add_genre' %}">Add Genre</a>
+</p>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>All Movies Page</h1>
+<p>Movies Registered in the MovieOn:</p>
+<ul>
+{% for movie in movies %}
+    <li><strong>{{ movie.title }}</strong> ({{ movie.director }}) - <a href="{% url 'edit_movie' movie.id %}" >Edit</a></li>
+{% endfor %}
+</ul>
+<p>
+    <a href="{% url 'add_movie' %}">Add movie</a>
+</p>
+{% endblock %}

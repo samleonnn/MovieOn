@@ -1,0 +1,10 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Deleting author : {{ author }}</h1>
+<form action="" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Confirm" class="btn btn-success"/>
+    <a href="{% url 'directors' %}" class="btn btn-danger">Cancel</a>
+</form>
+{% endblock %}
