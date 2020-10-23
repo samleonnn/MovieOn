@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+{% if type != 'edit' %}
+<h1>Add a movie</h1>
+{% else %}
+<h1>Edit a movie</h1>
+{% endif %}
+<form action="" method="POST">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <!-- check if type is edit, we display text Edit instead of Add -->
+    {% if type != 'edit' %}
+    <input type="submit" value="Add" class="btn btn-primary"/>
+    {% else %}
+    <input type="submit" value="Update" class="btn btn-primary"/>
+    {% endif %}
+    <a href="{% url 'movies' %}" class="btn btn-danger">Cancel</a>
+</form>
+{% endblock %}

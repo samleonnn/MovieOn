@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>All Directors Page</h1>
+<p>Directors Registered in the MovieOn :</p>
+<ul>
+{% for director in directors %}
+    <li><strong>{{ director }}</strong> - <a href="{% url 'edit_director' director.id %}">Edit</a> - <a href="{% url 'delete_director' director.id %}">Delete</a></li>
+{% endfor %}
+</ul>
+<p>
+    <a href="{% url 'add_director' %}">Add Director</a>
+</p>
+{% endblock %}
