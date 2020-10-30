@@ -1,14 +1,24 @@
 {% extends "base_generic.html" %}
 
+{% block title %}<title>MovieOn | Genre List</title>{% endblock %}
+
 {% block content %}
-<h1>All Genres Page</h1>
-<p>Genres Registered in the MovieOn:</p>
-<ul>
+<br>
+<h3 class="card-header">Best Genres in MovieOn</h3>
+
 {% for genre in genres %}
-    <li><strong>{{ genre }}</strong> - <a href="{% url 'edit_genre' genre.id %}" >Edit</a> - <a href="{% url 'delete_genre' genre.id %}" >Delete</a></li>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">{{ genre }}</h4>
+            <a href="{% url 'edit_genre' genre.id %}" class="card-link">Edit</a>
+            <a href="{% url 'delete_genre' genre.id %}" class="card-link">Delete</a>
+        </div>
+    </div>
 {% endfor %}
-</ul>
-<p>
-    <a href="{% url 'add_genre' %}">Add Genre</a>
-</p>
+
+<div class="card-footer text-muted">
+    <a href="{% url 'add_genre' %}" class="card-link">Add Genre</a>
+</div>
+
+<br>
 {% endblock %}

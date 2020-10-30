@@ -1,21 +1,29 @@
 {% extends "base_generic.html" %}
 
+{% block title %}<title>MovieOn | Director List</title>{% endblock %}
+
 {% block content %}
-{% if type != 'edit' %}
-<h1>Add a Director</h1>
-{% else %}
-<h1>Edit Director</h1>
-{% endif %}
-<form action="" method="POST">
-    {% csrf_token %}
-    <table>
-        {{ form.as_table }}
-    </table>
+<br>
+<div class="card text-white bg-info mb-3" style="max-width: 20rem;">
     {% if type != 'edit' %}
-    <input type="submit" value="Add" class="btn btn-primary"/>
+    <div class="card-header">Add a Director</div>
     {% else %}
-    <input type="submit" value="Update" class="btn btn-primary"/>
+    <div class="card-header">Edit a Director</div>
     {% endif %}
-    <a href="{% url 'directors' %}" class="btn btn-danger">Cancel</a>
-</form>
+    <div class="card-body">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            </table>
+            <br>
+            {% if type != 'edit' %}
+            <input type="submit" value="Add" class="btn btn-primary"/>
+            {% else %}
+            <input type="submit" value="Update" class="btn btn-primary"/>
+            {% endif %}
+            <a href="{% url 'directors' %}" class="btn btn-info">Cancel</a>
+        </form>
+    </div>
+</div>
 {% endblock %}

@@ -1,13 +1,45 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<h1>Home Page</h1>
-<p>Welcome !</p>
-<h2>Dynamic content</h2>
-<p>The library has the following record counts:</p>
-<ul>
-    <li><strong>Movies:</strong> {{ num_movies }}</li>
-    <li><strong>Directors:</strong> {{ num_directors }}</li>
-    <li><strong>Genres:</strong> {{ num_genres }}</li>
-</ul>
+<div class="jumbotron">
+    <h1 class="display-3">MovieOn</h1>
+    <p class="lead">MovieOn You!</p>
+    <hr class="my-4">
+    <p>MovieOn counting for You:</p>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card border-primary mb-3" style="max-width: 20rem;">
+                    <div class="card-header" align ="center">Movies</div>
+                    <div class="card-body">
+                    <h2 class="card-title" align="center">{{ num_movies }}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card border-danger mb-3" style="max-width: 20rem;">
+                    <div class="card-header" align ="center">Directors</div>
+                    <div class="card-body">
+                    <h2 class="card-title" align="center">{{ num_directors }}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card border-warning mb-3" style="max-width: 20rem;">
+                    <div class="card-header" align ="center">Genres</div>
+                    <div class="card-body">
+                    <h2 class="card-title" align="center">{{ num_genres }}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
