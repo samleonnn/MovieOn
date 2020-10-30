@@ -1,14 +1,24 @@
 {% extends "base_generic.html" %}
 
+{% block title %}<title>MovieOn | Director List</title>{% endblock %}
+
 {% block content %}
-<h1>All Directors Page</h1>
-<p>Directors Registered in the MovieOn :</p>
-<ul>
+<br>
+<h3 class="card-header">Best Directors in MovieOn</h3>
+
 {% for director in directors %}
-    <li><strong>{{ director }}</strong> - <a href="{% url 'edit_director' director.id %}">Edit</a> - <a href="{% url 'delete_director' director.id %}">Delete</a></li>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">{{ director }}</h4>
+            <a href="{% url 'edit_director' director.id %}" class="card-link">Edit</a>
+            <a href="{% url 'delete_director' director.id %}" class="card-link">Delete</a>
+        </div>
+    </div>
 {% endfor %}
-</ul>
-<p>
-    <a href="{% url 'add_director' %}">Add Director</a>
-</p>
+
+<div class="card-footer text-muted">
+    <a href="{% url 'add_director' %}" class="card-link">Add Director</a>
+</div>
+
+<br>
 {% endblock %}
