@@ -2,6 +2,18 @@
 
 {% block title %}<title>MovieOn | Director List</title>{% endblock %}
 
+{% block sidebar %}
+    <ul class="nav nav-pills">
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="{% url 'index' %}">Home</a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="{% url 'movies' %}">All Movies</a></li>
+        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="{% url 'directors' %}">All Directors</a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="{% url 'genres' %}">All Genres</a></li>
+    </ul>
+
+    {% load static %}
+    <img src="{% static 'logo.png' %}"/>
+{% endblock %}
+
 {% block content %}
 <br>
 <h3 class="card-header">Best Directors in MovieOn</h3>
@@ -10,14 +22,14 @@
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">{{ director }}</h4>
-            <a href="{% url 'edit_director' director.id %}" class="card-link">Edit</a>
-            <a href="{% url 'delete_director' director.id %}" class="card-link">Delete</a>
+            <a href="{% url 'edit_director' director.id %}" class="card-link">&#9998</a>
+            <a href="{% url 'delete_director' director.id %}" class="card-link">&#128465</a>
         </div>
     </div>
 {% endfor %}
 
 <div class="card-footer text-muted">
-    <a href="{% url 'add_director' %}" class="card-link">Add Director</a>
+    <a href="{% url 'add_director' %}" class="card-link">&#10133 Add Director</a>
 </div>
 
 <br>
