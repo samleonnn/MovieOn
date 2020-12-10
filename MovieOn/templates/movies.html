@@ -1,0 +1,72 @@
+{% extends "base_generic.html" %}
+
+{% block title %}<title>MovieOn | Movie List</title>{% endblock %}
+
+{% block navbar %}
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 navbar-scrolled" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="{% url 'index' %}">MovieOn</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto my-2 my-lg-0">
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'movies' %}">All Movies</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'directors' %}">All Directors</a></li>
+                        <div>
+                            {% if user.is_authenticated %}
+                                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'logout' %}?next={{ request.path }}" id="buttona">Hi, {{ user.get_username }} &nbsp;&nbsp;<i class="fa fa-user m-l-5" aria-hidden="true"></i></a></li>
+                            {% else %}
+                                {% if 'login' in request.path %}
+                                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'login' %}?next={{ '/' }}" id="buttona">Log In</a></li>
+                                {% else %}
+                                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'login' %}?next={{ request.path }}" id="buttona">Log In</a></li>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <br><br><br>
+{% endblock %}
+
+{% block content %}
+<section class="page-section bg-primary" id="about">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="text-white mt-0">We've got what you need!</h2>
+                <hr class="divider light my-4" />
+                <p class="text-white-50 mb-4">Start Bootstrap has everything you need to get your new website up and running in no time! Choose one of our open source, free to download, and easy to use themes! No strings attached!</p>
+                <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Get Started!</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<br>
+<h3 class="card-header">Best Movies in MovieOn</h3>
+<br>
+
+<div class="row">
+    {% for movie in movies %}
+    <div class="col-sm-6">
+        <div class="card mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">{{ movie.title }}</h4>
+                    <h6 class="card-subtitle mb-2 text-muted">By {{ movie.director }}</h6>
+                    <a href="{% url 'edit_movie' movie.id %}" class="card-link">&#9998</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="card-footer text-muted">
+    <a href="{% url 'add_movie' %}" class="card-link">&#10133 Add Movie</a>
+</div>
+
+<br>
+{% endblock %}
