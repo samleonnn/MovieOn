@@ -16,16 +16,21 @@
 
 {% block content %}
 <br>
-<div class="card text-white bg-warning mb-3" style="max-width: 20rem;">
-    <div class="card-header">Delete Director</div>
-    <div class="card-body">
-        <h4 class="card-title">Are you sure want to delete "{{ director }}" ?</h4>
-        <br>
-        <form action="" method="POST">
-            {% csrf_token %}
-            <input type="submit" value="Confirm" class="btn btn-success"/>
-            <a href="{% url 'directors' %}" class="btn btn-danger">Cancel</a>
-        </form>
+<h3 class="card-header">Best Directors in MovieOn</h3>
+
+{% for director in directors %}
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">{{ director }}</h4>
+            <a href="{% url 'edit_director' director.id %}" class="card-link">&#9998</a>
+            <a href="{% url 'delete_director' director.id %}" class="card-link">&#128465</a>
+        </div>
     </div>
+{% endfor %}
+
+<div class="card-footer text-muted">
+    <a href="{% url 'add_director' %}" class="card-link">&#10133 Add Director</a>
 </div>
+
+<br>
 {% endblock %}
