@@ -1,6 +1,8 @@
 from django.forms import ModelForm
 from django.core.exceptions import ValidationError
-from MovieOn.models import Movie, Director, Genre
+from MovieOn.models.movie import Movie
+from MovieOn.models.director import Director
+from MovieOn.models.genre import Genre
 
 class MovieForm(ModelForm):
     class Meta:
