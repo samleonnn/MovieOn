@@ -13,7 +13,7 @@ def index(request):
         'genres': genres,
     }
 
-    return render(request, 'genres.html', context=context)
+    return render(request, 'genre/index.html', context=context)
 
 @login_required
 def add_genre(request):
@@ -28,7 +28,7 @@ def add_genre(request):
     context = {
         'form': form
     }
-    return render(request, 'genre_form.html', context=context)
+    return render(request, 'genre/genre_form.html', context=context)
 
 @login_required
 def edit_genre(request, genre_id):
@@ -46,7 +46,7 @@ def edit_genre(request, genre_id):
         'form': form,
         'type': 'edit',
     }
-    return render(request, 'genre_form.html', context=context)
+    return render(request, 'genre/genre_form.html', context=context)
 
 @login_required
 def delete_genre(request, genre_id):
@@ -57,4 +57,4 @@ def delete_genre(request, genre_id):
     context = {
         'genre': genre,
     }
-    return render(request, 'genre_delete_form.html', context=context)
+    return render(request, 'genre/genre_delete_form.html', context=context)

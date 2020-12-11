@@ -13,7 +13,7 @@ def index(request):
         'movies': movies,
     }
 
-    return render(request, 'movies.html', context=context)
+    return render(request, 'movie/index.html', context=context)
 
 @login_required
 def add_movie(request):
@@ -28,7 +28,7 @@ def add_movie(request):
     context = {
         'form': form
     }
-    return render(request, 'movie_form.html', context=context)
+    return render(request, 'movie/movie_form.html', context=context)
 
 @login_required
 def edit_movie(request, movie_id):
@@ -46,4 +46,4 @@ def edit_movie(request, movie_id):
         'form': form,
         'type': 'edit',
     }
-    return render(request, 'movie_form.html', context=context)
+    return render(request, 'movie/movie_form.html', context=context)
