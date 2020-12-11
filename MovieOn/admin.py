@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Movie, Genre, Director
+from MovieOn.models import movie, genre, director
 
-admin.site.register(Movie)
-admin.site.register(Genre)
-admin.site.register(Director)
+admin.site.register(movie.Movie)
+admin.site.register(genre.Genre)
+admin.site.register(director.Director)
