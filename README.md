@@ -8,3 +8,4 @@ Our GitHub Repo [Link](https://github.com/samleonnn/MovieOn.git)
 * Supported also with Django Admin to modify the data
 * hello i'm samuel
 * hello i'm Renaldo
+* yey samuel again
