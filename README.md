@@ -6,6 +6,3 @@ Our GitHub Repo [Link](https://github.com/samleonnn/MovieOn.git)
 * User are able to Edit and Add Movies
 * User are able to Edit, Add, and Delete Directors and Genres
 * Supported also with Django Admin to modify the data
-* hello i'm samuel
-* hello i'm Renaldo
-* yey samuel again
