@@ -8,7 +8,7 @@ class MovieForm(ModelForm):
     class Meta:
         model = Movie  # model to use in form
         # list of fields to be displayed
-        fields = ['title', 'genre', 'director', 'datepublish', 'synopsis', 'review', 'rating']
+        fields = ['title', 'year', 'genre', 'director', 'datepublish', 'cast', 'country', 'MPAA_ratings', 'synopsis', 'photo']
 
 
 class DirectorForm(ModelForm):

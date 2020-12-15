@@ -1,19 +1,32 @@
 from django.shortcuts import render
+import requests
 from MovieOn.models.movie import Movie
 from django.forms.models import model_to_dict
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.template import loader
 from MovieOn.forms import MovieForm
 
 def index(request):
-    movies = Movie.objects.all()
-    context = {
-        'movies': movies,
-    }
+    if request.method == 'POST':
+        req = request.POST.dict()
+        query = req['q']
+        url = 'http://www.omdbapi.com/?apikey=df50edc8&s=' + query
+        response = requests.get(url)
+        movie_data = response.json()
+        
+        context = {
+            'query': query,
+            'movie_data': movie_data,
+        }
+        
+        template = loader.get_template('movie/index.html')
 
-    return render(request, 'movie/index.html', context=context)
+        return HttpResponse(template.render(context, request))
+
+    return render(request, 'index.html')
 
 @login_required
 def add_movie(request):

@@ -9,7 +9,6 @@
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto my-2 my-lg-0">
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'movies' %}">All Movies</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'directors' %}">All Directors</a></li>
                         <div>
                             {% if user.is_authenticated %}
@@ -34,12 +33,12 @@
 <div id="portfolio">
     <div class="container-fluid p-0">
         <div class="row no-gutters">
-            {% for movie in movies %}
-                <div class="col-lg-3 col-sm-6">
+            {% for movie in movie_data.Search %}
+                <div class="col-lg-2 col-sm-6">
                     <a class="portfolio-box" href="#">
-                        <img class="img-fluid" src="https://i.pinimg.com/originals/bc/d5/c9/bcd5c9519581acc60bd60a429ab0c88f.jpg" alt="" />
+                        <img class="img-fluid" src="{{ movie.Poster }}" alt="" />
                         <div class="portfolio-box-caption">
-                            <div class="project-name"><h4 class="card-title">{{ movie.title }}</h4><h6 class="card-subtitle mb-2" style="color: black;">By {{ movie.director }}</h6></div>
+                            <div class="project-name"><h4 class="card-title">{{ movie.Title }}</h4><h6 class="card-subtitle mb-2" style="color: black;"><i class="fa fa-calendar m-l-5" aria-hidden="true"></i> {{ movie.Year }}</h6></div>
                         </div>
                     </a>
                 </div>

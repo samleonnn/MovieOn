@@ -56,8 +56,8 @@
                 
                 <form method="post" action="">
                     {% csrf_token %}
-                    <input name="name" type="search" class="font-weight-bold" placeholder="Watch Now" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Watch Now'" autofocus><br><br>
-                    <a class="btn btn-primary btn-xl js-scroll-trigger" type="submit">Search</a>
+                    <input name="q" type="search" value="{{ request.GET.q }}"  class="font-weight-bold" placeholder="Watch Now" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Watch Now'" autofocus><br><br>
+                    <button class="btn btn-primary btn-xl js-scroll-trigger" type="submit" name="action" value="{{ request.GET.q }}">Search</button>
                 </form>
                 
             </div>
