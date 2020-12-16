@@ -3,8 +3,10 @@ from MovieOn.controllers import homepage_controller, director_controller, genre_
 
 
 urlpatterns = [
-    path('', movie_controller.index, name='index'),
+    path('', homepage_controller.index, name='index'),
     path('register', registration_controller.index, name='register'),
+    path('movies/', movie_controller.index, name='movies'),
+    path('movies/<query>/page/<page_number>', movie_controller.pagination, name='pagination'),
     path('directors/', director_controller.index, name='directors'),
     path('genre/', genre_controller.index, name='genres'),
     path('movies/add', movie_controller.add_movie, name='add_movie'),

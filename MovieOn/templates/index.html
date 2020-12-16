@@ -54,10 +54,10 @@
             </div>
             <div class="col-lg-8 align-self-baseline">
                 
-                <form method="post" action="">
+                <form method="post" action="{% url 'movies' %}">
                     {% csrf_token %}
-                    <input name="q" type="search" value="{{ request.GET.q }}"  class="font-weight-bold" placeholder="Watch Now" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Watch Now'" autofocus><br><br>
-                    <button class="btn btn-primary btn-xl js-scroll-trigger" type="submit" name="action" value="{{ request.GET.q }}">Search</button>
+                    <input name="q" type="search" class="font-weight-bold" placeholder="Watch Now" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Watch Now'" autofocus required><br><br>
+                    <button class="btn btn-primary btn-xl js-scroll-trigger" type="submit">Search</button>
                 </form>
                 
             </div>

@@ -1,9 +1,9 @@
 from django.shortcuts import render
 import requests
 from MovieOn.models.movie import Movie
+from django.core.paginator import Paginator
 from django.forms.models import model_to_dict
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.template import loader
@@ -16,10 +16,11 @@ def index(request):
         url = 'http://www.omdbapi.com/?apikey=df50edc8&s=' + query
         response = requests.get(url)
         movie_data = response.json()
-        
+
         context = {
             'query': query,
             'movie_data': movie_data,
+            'page_number': 1,
         }
         
         template = loader.get_template('movie/index.html')
@@ -27,6 +28,22 @@ def index(request):
         return HttpResponse(template.render(context, request))
 
     return render(request, 'index.html')
+
+def pagination(request, query, page_number):
+    url = 'http://www.omdbapi.com/?apikey=df50edc8&s=' + query + '&page=' + str(page_number)
+    response = requests.get(url)
+    movie_data = response.json()
+    page_number = int(page_number) + 1
+
+    context = {
+        'query': query,
+        'movie_data': movie_data,
+        'page_number': page_number,
+    }
+
+    template = loader.get_template('movie/index.html')
+
+    return HttpResponse(template.render(context, request))
 
 @login_required
 def add_movie(request):
