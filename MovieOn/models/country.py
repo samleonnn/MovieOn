@@ -7,4 +7,4 @@ class Country(models.Model):
         app_label = 'MovieOn'
 
     def __str__(self):
-        return self.country
+        return f'{self.country}'
