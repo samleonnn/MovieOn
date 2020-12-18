@@ -32,111 +32,122 @@
 {% block content %}
 
       <!--   Icon Section   -->
-      <div class="row">
-
-      <div class="col s12 m12">
+<div class="row">
+    <div class="col s12 m12">
         <div class="card horizontal">
-          <div class="card-image">
-          <img src="{{ movie_data.Poster }}">
-          </div>
-          
-          <div class="card-stacked">
-            <div class="card-content">
-              <span class="card-title"><b>{{ movie_data.Title }}</b></span>
-              <span>{{ movie_data.Type }}</span>
-              <br>
-              <p>{{ movie_data.Plot }}</p>
-              <br>
-              <div class="divider"></div>
-              <span>Year: <b>{{ movie_data.Year }}</b></span>
-              <span class="right">Rated: <b>{{ movie_data.Rated }}</b></span>
-              <p>Released: <b>{{ movie_data.Released }}</b></p>
-              <p>Runtime: <b>{{ movie_data.Runtime }}</b></p>
-              <p>Genre: <b>{{ movie_data.Genre }} </b></p>
-              <p>Director: <b>{{ movie_data.Director }}</b></p>
-              <p>Writer: <b>{{ movie_data.Writer }}</b></p>
-              <p>Actors: <b>{{ movie_data.Actors }}</b></p>
-              <p>Language: <b>{{ movie_data.Language }}</b></p>
-              <p>Country: <b>{{ movie_data.Country }}</b></p>
-              <p>Awards: <b>{{ movie_data.Awards }}</b></p>
-              <div class="divider"></div>
-               <ul class="collection">
-
-                  <li class="collection-item avatar">
-                    <span class="title">Rated</span>
-                    <p><b>{{ reviews_avg.rate__avg }}</b> by <b>{{ reviews_count }}</b> people </p>
-                  </li>
-
-
-              {% if our_db is True %}
-
-              {% for movie in movie_data.Ratings.all %}
-
-                  {% if movie.source == 'Internet Movie Database' %}
-                    <li class="collection-item avatar">
-                      <img src="{% static 'img/icons/imdb_icon.png' %}" alt="" class="circle">
-                      <span class="title">{{ movie.source }}</span>
-                      <p><b>{{ movie.rating }}</b></p>
-                      </li>
-                  {% elif movie.source == 'Rotten Tomatoes' %}
-                    <li class="collection-item avatar">
-                      <img src="{% static 'img/icons/rt_icon.png' %}" alt="" class="circle">
-                      <span class="title">{{ movie.source }}</span>
-                      <p><b>{{ movie.rating }}</b></p>
-                    </li>
-                  {% else %}
-                      <li class="collection-item avatar">
-                        <img src="{% static 'img/icons/meta_icon.png' %}" alt="" class="circle">
-                        <span class="title">{{ movie.source }}</span>
-                        <p><b>{{ movie.rating }}</b></p>
-                      </li>
-                  {% endif %}
-
-              {% endfor %}
-
-              {% else %}
-
-                  <li class="collection-item avatar">
-                    <img src="{% static 'img/icons/imdb_icon.png' %}" alt="" class="circle">
-                    <span class="title">{{ movie_data.Ratings.0.Source }}</span>
-                    <p><b>{{ movie_data.Ratings.0.Value }}</b></p>
-                  </li>
-
-                  <li class="collection-item avatar">
-                    <img src="{% static 'img/icons/rt_icon.png' %}" alt="" class="circle">
-                    <span class="title">{{ movie_data.Ratings.1.Source }}</span>
-                    <p><b>{{ movie_data.Ratings.0.Value }}</b></p>
-                  </li>
-
-                  <li class="collection-item avatar">
-                    <img src="{% static 'img/icons/meta_icon.png' %}" alt="" class="circle">
-                    <span class="title">{{ movie_data.Ratings.2.Source }}</span>
-                    <p><b>{{ movie_data.Ratings.0.Value }}</b></p>
-                  </li>
-
-            {% endif %}
-
-                </ul>
-
-                <div class="divider"></div>
-                <p>Box Office: <b>{{ movie_data.BoxOffice }}</b></p>
-                <p>imdb Votes: <b>{{ movie_data.imdbVotes }}</b></p>
-                <p>imdb ID: <b>{{ movie_data.imdbID }}</b></p>
-                <p>Production: <b>{{ movie_data.Production }}</b></p>
-
-                <!---
-                <br>
-                <a href="{% url 'rate-movie' movie_data.imdbID %}" class="waves-effect waves-light btn"><i class="material-icons left">star</i>Rate</a>
-                <a href="{% url 'add-movies-to-watch' movie_data.imdbID %}" class="waves-effect waves-light btn"><i class="material-icons left">playlist_add</i>Watchlist</a>
-                <a href="{% url 'add-movies-watched' movie_data.imdbID %}" class="waves-effect waves-light btn"><i class="material-icons left">playlist_add_checked</i>Watched</a>-->
-
-
+            <div class="card-image">
+                {% if ourDB is True %}
+                    <img src="{{ movie_data.poster }}">
+                {% else %}
+                    <img src="{{ movie_data.Poster }}">
+                {% endif %}
             </div>
-          </div>
-        </div>
-      </div>
+          
+            <div class="card-stacked">
+                <div class="card-content">
+                {% if ourDB is True %}
+                    <span class="card-title"><b>{{ movie_data.title }}</b></span>
+                    <span>{{ movie_data.type }}</span>
+                {% else %}
+                    <span class="card-title"><b>{{ movie_data.Title }}</b></span>
+                    <span>{{ movie_data.Type }}</span>
+                {% endif %}
+                <br>
+                {% if ourDB is True %}
+                    <p>{{ movie_data.synopsis }}</p>
+                {% else %}
+                    <p>{{ movie_data.Plot }}</p>
+                {% endif %}
+                
+                <br>
+                <div class="divider"></div>
+                {% if ourDB is True %}
+                    <span>Year: <b>{{ movie_data.year }}</b></span>
+                    <span class="right">Rated: <b>{{ movie_data.rated }}</b></span>
+                    <p>Released: <b>{{ movie_data.datepublish }}</b></p>
+                    <p>Runtime: <b>{{ movie_data.runtime }}</b></p>
+                    <p>Genre: 
+                    {% for Genre in movie_data.genre.all %}
+                        <b>{{ Genre }}</b>
+                    {% endfor %}
+                    <p>Director: <b>{{ movie_data.director }}</b></p>
+                    <p>Writer: <b>{{ movie_data.writer }}</b></p>
+                    <p>Cast:
+                    {% for Cast in movie_data.cast.all %}
+                        <b>{{ Cast }}</b>
+                    {% endfor %}
+                    </p>
+                    <p>Country: <b>{{ movie_data.country }}</b></p>
+                {% else %}
+                    <span>Year: <b>{{ movie_data.Year }}</b></span>
+                    <span class="right">Rated: <b>{{ movie_data.Rated }}</b></span>
+                    <p>Released: <b>{{ movie_data.Released }}</b></p>
+                    <p>Runtime: <b>{{ movie_data.Runtime }}</b></p>
+                    <p>Genre: <b>{{ movie_data.Genre }} </b></p>
+                    <p>Director: <b>{{ movie_data.Director }}</b></p>
+                    <p>Writer: <b>{{ movie_data.Writer }}</b></p>
+                    <p>Cast: <b>{{ movie_data.Actors }}</b></p>
+                    <p>Country: <b>{{ movie_data.Country }}</b></p>
+                {% endif %}
+                
+                <div class="divider"></div>
+                    <ul class="collection">
+                        <!---li--- class="collection-item avatar">
+                            <span class="title">Rated</span>
+                            <p><b>{{ reviews_avg.rate__avg }}</b> by <b>{{ reviews_count }}</b> people </p>
+                        </li--->
+                        {% if ourDB is True %}
+                        {% for movie in movie_data.ratings.all %}
+                            {% if movie.source == 'Internet Movie Database' %}
+                                <li class="collection-item avatar">
+                                <img src="{% static 'img/icons/imdb_icon.png' %}" alt="" class="circle">
+                                <span class="title">{{ movie.source }}</span>
+                                <p><b>{{ movie.rating }}</b></p>
+                                </li>
 
-      </div>
+                            {% elif movie.source == 'Rotten Tomatoes' %}
+                                <li class="collection-item avatar">
+                                <img src="{% static 'img/icons/rt_icon.png' %}" alt="" class="circle">
+                                <span class="title">{{ movie.source }}</span>
+                                <p><b>{{ movie.rating }}</b></p>
+                                </li>
+
+                            {% else %}
+                                <li class="collection-item avatar">
+                                    <img src="{% static 'img/icons/meta_icon.png' %}" alt="" class="circle">
+                                    <span class="title">{{ movie.source }}</span>
+                                    <p><b>{{ movie.rating }}</b></p>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                        {% else %}
+                            <li class="collection-item avatar">
+                            <img src="{% static 'img/icons/imdb_icon.png' %}" alt="" class="circle">
+                            <span class="title">{{ movie_data.Ratings.0.Source }}</span>
+                            <p><b>{{ movie_data.Ratings.0.Value }}</b></p>
+                            </li>
+
+                            <li class="collection-item avatar">
+                            <img src="{% static 'img/icons/rt_icon.png' %}" alt="" class="circle">
+                            <span class="title">{{ movie_data.Ratings.1.Source }}</span>
+                            <p><b>{{ movie_data.Ratings.1.Value }}</b></p>
+                            </li>
+
+                            <li class="collection-item avatar">
+                            <img src="{% static 'img/icons/meta_icon.png' %}" alt="" class="circle">
+                            <span class="title">{{ movie_data.Ratings.2.Source }}</span>
+                            <p><b>{{ movie_data.Ratings.2.Value }}</b></p>
+                            </li>
+                        {% endif %}
+                    </ul>
+
+                    <div class="divider"></div>
+                    <p>imdb ID: <b>{{ movie_data.imdbID }}</b></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
       <!---h4>Reviews</!---h4>
       <div class="divider"></div>
