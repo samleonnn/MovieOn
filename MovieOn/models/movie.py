@@ -23,7 +23,7 @@ class Movie(models.Model):
     ratings = models.ManyToManyField(Rating)
     imdbID = models.OneToOneField(IMDBID, on_delete=models.CASCADE)
     type = models.CharField(max_length=10)
-    totalseasons = models.CharField(max_length=4)
+    totalseasons = models.CharField(max_length=4, null=True)
 
     class Meta:
         app_label = 'MovieOn'
