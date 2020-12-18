@@ -31,8 +31,10 @@
         <div class="wrap-login100">
             {% if next %}
                     {% if user.is_authenticated %}
-                        <meta http-equiv = "refresh" content = "0; url = {% url 'index' %}" />
-
+                        <meta http-equiv = "refresh" content = "1; url = {% url 'index' %}" />
+                        <span class="login100-form-title">
+                            You will be redirected to Home Page
+                        </span>
                     {% else %}
                         <div class="login100-pic js-tilt" data-tilt>
                             <img src="{% static 'assets/img-01.png' %}" alt="IMG">

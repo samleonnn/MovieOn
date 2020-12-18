@@ -54,10 +54,10 @@
             </div>
             <div class="col-lg-8 align-self-baseline">
                 
-                <form method="post" action="">
+                <form method="post" action="{% url 'movies' %}">
                     {% csrf_token %}
-                    <input name="name" type="search" class="font-weight-bold" placeholder="Watch Now" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Watch Now'" autofocus><br><br>
-                    <a class="btn btn-primary btn-xl js-scroll-trigger" type="submit">Search</a>
+                    <input name="q" type="search" class="font-weight-bold" placeholder="Watch Now" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Watch Now'" autofocus required><br><br>
+                    <button class="btn btn-primary btn-xl js-scroll-trigger" type="submit">Search</button>
                 </form>
                 
             </div>

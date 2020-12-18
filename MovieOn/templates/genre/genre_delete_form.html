@@ -2,18 +2,6 @@
 
 {% block title %}<title>MovieOn | Genre List</title>{% endblock %}
 
-{% block sidebar %}
-    <ul class="nav nav-pills">
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="{% url 'index' %}">Home</a></li>
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="{% url 'movies' %}">All Movies</a></li>
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="{% url 'directors' %}">All Directors</a></li>
-        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="{% url 'genres' %}">All Genres</a></li>
-    </ul>
-
-    {% load static %}
-    <img src="{% static 'logo.png' %}"/>
-{% endblock %}
-
 {% block content %}
 <br>
 <div class="card text-white bg-warning mb-3" style="max-width: 20rem;">

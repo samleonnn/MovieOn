@@ -1,18 +1,17 @@
 from django.db import models
 from django.utils.text import slugify
 
-class Genre(models.Model):
-    genre = models.CharField(max_length=200)
-    slug = models.SlugField(null=False, unique=True)
+class Cast(models.Model):
+    name = models.CharField(max_length=200)
+    slug = models.SlugField(null=True, unique=True)
 
     class Meta:
         app_label = 'MovieOn'
 
     def __str__(self):
-        return f'{self.genre}'
+        return f'{self.name}'
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.genre.replace(" ", "")
-            self.slug = slugify(self.genre)
+            self.slug = slugify(self.name)
         return super().save(*args, **kwargs)

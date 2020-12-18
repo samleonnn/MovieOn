@@ -8,14 +8,14 @@ class MovieForm(ModelForm):
     class Meta:
         model = Movie  # model to use in form
         # list of fields to be displayed
-        fields = ['title', 'genre', 'director', 'datepublish', 'synopsis', 'review', 'rating']
+        fields = ['title', 'year', 'rated', 'datepublish', 'runtime', 'genre', 'director', 'writer','cast', 'synopsis', 'country', 'poster', 'ratings', 'imdbID','type', 'totalseasons']
 
 
 class DirectorForm(ModelForm):
     class Meta:
         model = Director  # model to use in form
         # list of fields to be displayed
-        fields = ['First_Name', 'Last_Name', 'DoB']
+        fields = ['name', 'DoB']
 
 class GenreForm(ModelForm):
     class Meta:
