@@ -10,10 +10,16 @@
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto my-2 my-lg-0">
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'directors' %}">All Directors</a></li>
                         <div>
                             {% if user.is_authenticated %}
-                                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'logout' %}?next={{ request.path }}" id="buttona">Hi, {{ user.get_username }} &nbsp;&nbsp;<i class="fa fa-user m-l-5" aria-hidden="true"></i></a></li>
+                                <li class="nav-item dropdown">
+                                    <a class="dropdown-toggle nav-link js-scroll-trigger" data-toggle="dropdown" href="#">Hi, {{ user.get_username }} &nbsp;&nbsp;<i class="fa fa-user m-l-5" aria-hidden="true"></i>
+                                    <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="nav-link js-scroll-trigger" href="#" id="buttona">Profile</a></li><p></p>
+                                        <li><a class="nav-link js-scroll-trigger" href="{% url 'logout' %}?next={{ request.path }}" id="buttona">Log Out</a></li>
+                                    </ul>
+                                </li>
                             {% else %}
                                 {% if 'login' in request.path %}
                                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'login' %}?next={{ '/' }}" id="buttona">Log In</a></li>
@@ -30,46 +36,32 @@
 {% endblock %}
 
 {% block content %}
-
-      <!--   Icon Section   -->
+{% if ourDB is True %}
 <div class="row">
     <div class="col s12 m12">
         <div class="card horizontal">
             <div class="card-image">
-                {% if ourDB is True %}
                     <img src="{{ movie_data.poster }}">
-                {% else %}
-                    <img src="{{ movie_data.Poster }}">
-                {% endif %}
             </div>
           
             <div class="card-stacked">
                 <div class="card-content">
-                {% if ourDB is True %}
                     <span class="card-title"><b>{{ movie_data.title }}</b></span>
                     <span>{{ movie_data.type }}</span>
-                {% else %}
-                    <span class="card-title"><b>{{ movie_data.Title }}</b></span>
-                    <span>{{ movie_data.Type }}</span>
-                {% endif %}
                 <br>
-                {% if ourDB is True %}
                     <p>{{ movie_data.synopsis }}</p>
-                {% else %}
-                    <p>{{ movie_data.Plot }}</p>
-                {% endif %}
                 
                 <br>
                 <div class="divider"></div>
-                {% if ourDB is True %}
                     <span>Year: <b>{{ movie_data.year }}</b></span>
                     <span class="right">Rated: <b>{{ movie_data.rated }}</b></span>
                     <p>Released: <b>{{ movie_data.datepublish }}</b></p>
                     <p>Runtime: <b>{{ movie_data.runtime }}</b></p>
                     <p>Genre: 
                     {% for Genre in movie_data.genre.all %}
-                        <b>{{ Genre }}</b>
+                        <b><a href="{{ Genre.get_absolute_url }}">{{ Genre }}</a></b>
                     {% endfor %}
+                    </p>
                     <p>Director: <b>{{ movie_data.director }}</b></p>
                     <p>Writer: <b>{{ movie_data.writer }}</b></p>
                     <p>Cast:
@@ -78,17 +70,6 @@
                     {% endfor %}
                     </p>
                     <p>Country: <b>{{ movie_data.country }}</b></p>
-                {% else %}
-                    <span>Year: <b>{{ movie_data.Year }}</b></span>
-                    <span class="right">Rated: <b>{{ movie_data.Rated }}</b></span>
-                    <p>Released: <b>{{ movie_data.Released }}</b></p>
-                    <p>Runtime: <b>{{ movie_data.Runtime }}</b></p>
-                    <p>Genre: <b>{{ movie_data.Genre }} </b></p>
-                    <p>Director: <b>{{ movie_data.Director }}</b></p>
-                    <p>Writer: <b>{{ movie_data.Writer }}</b></p>
-                    <p>Cast: <b>{{ movie_data.Actors }}</b></p>
-                    <p>Country: <b>{{ movie_data.Country }}</b></p>
-                {% endif %}
                 
                 <div class="divider"></div>
                     <ul class="collection">
@@ -96,7 +77,6 @@
                             <span class="title">Rated</span>
                             <p><b>{{ reviews_avg.rate__avg }}</b> by <b>{{ reviews_count }}</b> people </p>
                         </li--->
-                        {% if ourDB is True %}
                         {% for movie in movie_data.ratings.all %}
                             {% if movie.source == 'Internet Movie Database' %}
                                 <li class="collection-item avatar">
@@ -120,25 +100,6 @@
                                 </li>
                             {% endif %}
                         {% endfor %}
-                        {% else %}
-                            <li class="collection-item avatar">
-                            <img src="{% static 'img/icons/imdb_icon.png' %}" alt="" class="circle">
-                            <span class="title">{{ movie_data.Ratings.0.Source }}</span>
-                            <p><b>{{ movie_data.Ratings.0.Value }}</b></p>
-                            </li>
-
-                            <li class="collection-item avatar">
-                            <img src="{% static 'img/icons/rt_icon.png' %}" alt="" class="circle">
-                            <span class="title">{{ movie_data.Ratings.1.Source }}</span>
-                            <p><b>{{ movie_data.Ratings.1.Value }}</b></p>
-                            </li>
-
-                            <li class="collection-item avatar">
-                            <img src="{% static 'img/icons/meta_icon.png' %}" alt="" class="circle">
-                            <span class="title">{{ movie_data.Ratings.2.Source }}</span>
-                            <p><b>{{ movie_data.Ratings.2.Value }}</b></p>
-                            </li>
-                        {% endif %}
                     </ul>
 
                     <div class="divider"></div>
@@ -181,5 +142,7 @@
             </div>
           </div--->
 
-
+{% else %}
+    <meta http-equiv = "refresh" content = "0;">Getting movie...</meta>
+{% endif %}
 {% endblock %}
