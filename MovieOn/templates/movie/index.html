@@ -10,10 +10,16 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto my-2 my-lg-0">
                         <li class="nav-item"><i class="nav-link js-scroll-trigger">You are searching for "{{ query }}"</i></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'directors' %}">All Directors</a></li>
                         <div>
                             {% if user.is_authenticated %}
-                                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'logout' %}?next={{ request.path }}" id="buttona">Hi, {{ user.get_username }} &nbsp;&nbsp;<i class="fa fa-user m-l-5" aria-hidden="true"></i></a></li>
+                                <li class="nav-item dropdown">
+                                    <a class="dropdown-toggle nav-link js-scroll-trigger" data-toggle="dropdown" href="#">Hi, {{ user.get_username }} &nbsp;&nbsp;<i class="fa fa-user m-l-5" aria-hidden="true"></i>
+                                    <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="nav-link js-scroll-trigger" href="#" id="buttona">Profile</a></li><p></p>
+                                        <li><a class="nav-link js-scroll-trigger" href="{% url 'logout' %}?next={{ request.path }}" id="buttona">Log Out</a></li>
+                                    </ul>
+                                </li>
                             {% else %}
                                 {% if 'login' in request.path %}
                                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'login' %}?next={{ '/' }}" id="buttona">Log In</a></li>
