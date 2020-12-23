@@ -59,7 +59,6 @@ def movie_details(request, imdb_id):
         movie_data = Movie.objects.get(imdbID=imdb_id)
         user = request.user
         ourDB = True
-
         comments = Comment.objects.filter(movie=movie_data)
 
         if request.method == 'POST':
@@ -76,6 +75,8 @@ def movie_details(request, imdb_id):
         url = 'http://www.omdbapi.com/?apikey=df50edc8&i=' + imdb_id
         response = requests.get(url)
         movie_data = response.json()
+        comments = ''
+        form = ''
 
         cast_obj = []
         director_obj = []
