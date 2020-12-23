@@ -1,7 +1,7 @@
 {% extends "base_generic.html" %}
 {% load static %}
 
-{% block title %}<title>MovieOn | Movie List</title>{% endblock %}
+{% block title %}<title>MovieOn | {{ movie_data.title }}</title>{% endblock %}
 
 {% block navbar %}
         <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 navbar-scrolled" id="mainNav">
@@ -37,20 +37,18 @@
 
 {% block content %}
 {% if ourDB is True %}
-<div class="jumbotron">
+<div class="jumbotron" style="padding-top: 1rem;">
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <img src="{{ movie_data.poster }}" />
+                <img src="{{ movie_data.poster }}" /><br><br>
             </div>
 
             <div class="col-md-8">
                 <h1>{{ movie_data.title }}</h1>
                 <h5>{{ movie_data.type }} - {{ movie_data.year }}</h5>
-                <p>Synopsis : <b>{{ movie_data.synopsis }}</b></p>
-                <p>Rated: <b>{{ movie_data.rated }}</b></p>
-                <p>Released: <b>{{ movie_data.datepublish }}</b></p>
-                <p>Runtime: <b>{{ movie_data.runtime }}</b></p>
+                <p><b>"{{ movie_data.synopsis }}"</b></p>
+                <p>Rated: <b>{{ movie_data.rated }}</b> | Released: <b>{{ movie_data.datepublish }}</b> | Runtime: <b>{{ movie_data.runtime }}</b></p>
                 <p>Genre: |
                 {% for Genre in movie_data.genre.all %}
                     <b><a href="{{ Genre.get_absolute_url }}">{{ Genre }}</a></b> |
@@ -91,6 +89,51 @@
                 </ul>
             </div>
         </div>
+        <br><br>
+
+        <!--Comment Section-->
+        <h4>Comments...</h4>
+
+        {% if user.is_authenticated %}
+        <form action="" method="POST" role="form">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.body }}
+                <p></p>
+                <div class="float-right">
+                {% if type != 'edit' %}
+                <input type="submit" value="Add" class="btn btn-info"/>
+                {% else %}
+                <input type="submit" value="Update" class="btn btn-info"/>
+                <a href="{% url 'directors' %}" class="btn btn-danger">Cancel</a>
+                {% endif %}
+                </div>
+            </div>
+        </form>
+        <br><br>
+        {% else %}
+        <div class="card">
+            <div class="card-body" style="text-align: center;">
+                <h6>Please <a href="{% url 'login' %}?next={{ request.path }}">Login</a> to give some comment</h6>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if comments %}
+            {% for comment in comments %}
+            <div class="card">
+                <div class="card-body">
+                    {{ comment.user }} - {{ comment.date }} <h5>{{ comment.body }}</h5>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+        <div class="card">
+            <div class="card-body" style="text-align: center;">
+                <h5>No comments yet...</h5>
+            </div>
+        </div>
+        {% endif %}
     </div>
 </div>
 {% else %}

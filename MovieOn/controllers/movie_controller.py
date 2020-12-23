@@ -7,14 +7,16 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.template import loader
 from django.utils.text import slugify
+from django.contrib.auth.models import User
 
 from MovieOn.models.movie import Movie
 from MovieOn.models.cast import Cast
 from MovieOn.models.director import Director
 from MovieOn.models.genre import Genre
 from MovieOn.models.ratings import Rating
+from MovieOn.models.comment import Comment
 
-from MovieOn.forms import MovieForm
+from MovieOn.forms import MovieForm, CommentForm
 
 def index(request):
     if request.method == 'POST':
@@ -55,7 +57,21 @@ def pagination(request, query, page_number):
 def movie_details(request, imdb_id):
     if Movie.objects.filter(imdbID=imdb_id).exists():
         movie_data = Movie.objects.get(imdbID=imdb_id)
+        user = request.user
         ourDB = True
+
+        comments = Comment.objects.filter(movie=movie_data)
+
+        if request.method == 'POST':
+            form = CommentForm(request.POST)
+            if form.is_valid():
+                comment = form.save(commit=False)
+                comment.movie = movie_data
+                comment.user = user
+                comment.save()
+                return HttpResponseRedirect(request.path_info)
+        else:
+            form = CommentForm()
     else:
         url = 'http://www.omdbapi.com/?apikey=df50edc8&i=' + imdb_id
         response = requests.get(url)
@@ -108,6 +124,8 @@ def movie_details(request, imdb_id):
     context = {
         'movie_data': movie_data,
         'ourDB': ourDB,
+        'comments': comments,
+        'form': form,
     }
 
     template = loader.get_template('movie/movie_details.html')
