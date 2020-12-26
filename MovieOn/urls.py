@@ -1,5 +1,5 @@
 from django.urls import path
-from MovieOn.controllers import homepage_controller, director_controller, genre_controller, movie_controller, registration_controller
+from MovieOn.controllers import homepage_controller, director_controller, genre_controller, movie_controller, registration_controller, comment_controller
 
 
 urlpatterns = [
