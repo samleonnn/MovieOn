@@ -66,21 +66,18 @@
                     {% for movie in movie_data.ratings.all %}
                         {% if movie.source == 'Internet Movie Database' %}
                             <li class="list-group-item list-group-item-dark">
-                                <img src="#" alt="" class="circle">
                                 <span class="title">{{ movie.source }}: </span>
                                 <b>{{ movie.rating }}</b>
                             </li>
 
                         {% elif movie.source == 'Rotten Tomatoes' %}
                             <li class="list-group-item list-group-item-dark">
-                                <img src="#" alt="" class="circle">
                                 <span class="title">{{ movie.source }}: </span>
                                 <b>{{ movie.rating }}</b>
                             </li>
 
                         {% else %}
                             <li class="list-group-item list-group-item-dark">
-                                <img src="#" alt="" class="circle">
                                 <span class="title">{{ movie.source }}: </span>
                                 <b>{{ movie.rating }}</b>
                             </li>
@@ -101,12 +98,7 @@
                 {{ form.body }}
                 <p></p>
                 <div class="float-right">
-                {% if type != 'edit' %}
                 <input type="submit" value="Add" class="btn btn-info"/>
-                {% else %}
-                <input type="submit" value="Update" class="btn btn-info"/>
-                <a href="{% url 'directors' %}" class="btn btn-danger">Cancel</a>
-                {% endif %}
                 </div>
             </div>
         </form>
@@ -124,6 +116,27 @@
             <div class="card">
                 <div class="card-body">
                     {{ comment.user }} - {{ comment.date }} <h5>{{ comment.body }}</h5>
+                    {% if user.is_authenticated %}
+                        {% if comment.user == user %}
+                            <div class="float-right">
+                                <a href="#">Edit</a> | <a href="#">Delete</a>
+                            </div>
+                            <!---masih belum tau gimana caranya-->
+                            {% if type == 'edit' %}
+                            <form action="" method="POST" role="form">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    {{ form.body }}
+                                    <p></p>
+                                    <div class="float-right">
+                                        <input type="submit" value="Update" class="btn btn-info"/>
+                                        <a href="{{ request.path }}" class="btn btn-danger">Cancel</a>
+                                    </div>
+                                </div>
+                            </form>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
                 </div>
             </div>
             {% endfor %}
