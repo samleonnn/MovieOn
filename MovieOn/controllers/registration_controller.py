@@ -7,32 +7,35 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 
 def index(request):
-    msg = ''
+    error = ''
     if request.method == 'POST':
         req = request.POST.dict()
         username = req['username']
-        password = req['password']
+        password = req['password1']
+        verify = req['password2']
         email = req['email']
-        try:
-            user = User.objects.get(username=username)
-            msg = 'Username or E-Mail is already registered'
-        except User.DoesNotExist:
-            user = User.objects.create_user(username, email, password)
-            user.save()
-            msg = ''
-            html_message = render_to_string('regis_email.html', {'context': 'values'}, username)
-            send_mail(
-                'Welcome to MovieOn journey!',
-                'You are now a member of MovieOn',
-                settings.EMAIL_HOST_USER,
-                [email],
-                html_message = html_message,
-                fail_silently=True,
-            )
-        return HttpResponseRedirect('accounts/login?next=/')
 
+        if password != verify:
+            error = 'Password Incorrect! Please try again'
+        else:
+            try: 
+                user = User.objects.get(username=username)
+                error = 'Username already exist! Please choose another username'
+            except User.DoesNotExist: 
+                user = User.objects.create_user(username, email, password) 
+                user.save()
+                error = ''
+                html_message = render_to_string('regis_email.html', {'context': 'values', 'username':username})
+                send_mail(
+                    'Welcome to MovieOn journey!',
+                    'You are now a member of MovieOn',
+                    settings.EMAIL_HOST_USER,
+                    [email],
+                    html_message = html_message,
+                    fail_silently=True,
+                )
+                return HttpResponseRedirect('accounts/login')
     data = {
-        'user_exists_error': msg,
+        'user_exists_error': error,
     }
-    
     return render(request, 'registration.html', data)

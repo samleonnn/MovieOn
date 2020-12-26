@@ -56,8 +56,16 @@
                     </span>
                 </div>
 
+                <div class="wrap-input100 validate-input" data-validate = "Password is required">
+                    <input id="id_password" class="input100" type="password" name="password1" placeholder="Password" required>
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                    </span>
+                </div>
+
                 <div class="wrap-input100 validate-input" data-validate = "Password is required" style="margin-bottom: 30px;">
-                    <input id="id_password" class="input100" type="password" name="password" placeholder="Password" required>
+                    <input id="id_password" class="input100" type="password" name="password2" placeholder="Verify Password" required>
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
                         <i class="fa fa-lock" aria-hidden="true"></i>
@@ -73,15 +81,15 @@
                 <input type="hidden" name="next" value="{{ next }}" />
                 
                 <div class="text-center p-t-50">
-                    {% if form.errors %}
-                        <p class="txt2">Your username and password <a class="txt2" style="color: rgb(221, 50, 50);">already exists</a>. Please try again or 
-                    {% endif %}
+                    <p class="txt2" style="color: rgb(221, 50, 50);">{{ user_exists_error }}</p>
+                    <!-- {% if user_exists_error %}
+                        <p class="txt2">Username <a class="txt2" style="color: rgb(221, 50, 50);">already exists</a>. Please try again or 
+                    {% endif %} -->
 
                     <a class="txt2" href="{% url 'login' %}?next={{ '/' }}">
                         <i class="fa fa-angle-left m-l-5" aria-hidden="true"></i>
                         Already have MovieOn account?
                     </a>
-                    </p>
                 </div>
             </form>
         </div>
