@@ -66,21 +66,18 @@
                     {% for movie in movie_data.ratings.all %}
                         {% if movie.source == 'Internet Movie Database' %}
                             <li class="list-group-item list-group-item-dark">
-                                <img src="#" alt="" class="circle">
                                 <span class="title">{{ movie.source }}: </span>
                                 <b>{{ movie.rating }}</b>
                             </li>
 
                         {% elif movie.source == 'Rotten Tomatoes' %}
                             <li class="list-group-item list-group-item-dark">
-                                <img src="#" alt="" class="circle">
                                 <span class="title">{{ movie.source }}: </span>
                                 <b>{{ movie.rating }}</b>
                             </li>
 
                         {% else %}
                             <li class="list-group-item list-group-item-dark">
-                                <img src="#" alt="" class="circle">
                                 <span class="title">{{ movie.source }}: </span>
                                 <b>{{ movie.rating }}</b>
                             </li>
@@ -124,6 +121,13 @@
             <div class="card">
                 <div class="card-body">
                     {{ comment.user }} - {{ comment.date }} <h5>{{ comment.body }}</h5>
+                    {% if user.is_authenticated %}
+                        {% if comment.user == user %}
+                            <div class="float-right">
+                                <a href="#">Edit</a> | <a href="#">Delete</a>
+                            </div>
+                        {% endif %}
+                    {% endif %}
                 </div>
             </div>
             {% endfor %}
