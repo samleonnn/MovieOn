@@ -119,7 +119,7 @@
                     {% if user.is_authenticated %}
                         {% if comment.user == user %}
                             <div class="float-right">
-                                <a href="#">Edit</a> | <a href="#">Delete</a>
+                                <a href="#"><i class="fa fa-edit m-l-5" aria-hidden="true"></i></a> | <a href="{% url 'delete_comment' movie_data.imdbID comment.id %}"><i class="fa fa-trash m-l-5" aria-hidden="true"></i></a>
                             </div>
                             <!---masih belum tau gimana caranya-->
                             {% if type == 'edit' %}

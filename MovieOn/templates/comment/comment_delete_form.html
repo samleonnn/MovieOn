@@ -1,0 +1,53 @@
+{% extends "base_generic.html" %}
+
+{% block title %}<title>MovieOn | Delete Comment</title>{% endblock %}
+
+{% block navbar %}
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 navbar-scrolled" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="{% url 'index' %}">MovieOn</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto my-2 my-lg-0">
+                        <div>
+                            {% if user.is_authenticated %}
+                                <li class="nav-item dropdown">
+                                    <a class="dropdown-toggle nav-link js-scroll-trigger" data-toggle="dropdown" href="#">Hi, {{ user.get_username }} &nbsp;&nbsp;<i class="fa fa-user m-l-5" aria-hidden="true"></i>
+                                    <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="nav-link js-scroll-trigger" href="#" id="buttona">Profile</a></li><p></p>
+                                        <li><a class="nav-link js-scroll-trigger" href="{% url 'logout' %}?next={{ request.path }}" id="buttona">Log Out</a></li>
+                                    </ul>
+                                </li>
+                            {% else %}
+                                {% if 'login' in request.path %}
+                                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'login' %}?next={{ '/' }}" id="buttona">Log In</a></li>
+                                {% else %}
+                                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'login' %}?next={{ request.path }}" id="buttona">Log In</a></li>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <br><br>
+{% endblock %}
+
+{% block content %}
+<br>
+<div class="jumbotron" style="background-color: #e9ecef; height: 100vh; overflow-y: hidden;">
+    <div class="card text-white bg-warning mb-3" style="max-width: 40rem; margin: 0 auto; margin-bottom: 10px;">
+        <div class="card-header">Delete Comment Confirmation</div>
+        <div class="card-body">
+            <h5 class="card-title">Are you sure want to delete "{{ comment.body }}" comment ?</h5>
+            <br>
+            <form action="" method="POST" class="float-right">
+                {% csrf_token %}
+                <input type="submit" value="Confirm" class="btn btn-success"/>
+                <a href="{% url 'details_movie' imdb_id=imdb_id %}" class="btn btn-danger">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
