@@ -20,7 +20,7 @@ def index(request):
         else:
             try: 
                 user = User.objects.get(username=username)
-                error = 'Username already exist! Please choose another username'
+                error = 'Sorry, Username already Exist'
             except User.DoesNotExist: 
                 user = User.objects.create_user(username, email, password) 
                 user.save()

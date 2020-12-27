@@ -3,48 +3,6 @@
 {% block title %}<title>MovieOn | Home</title>{% endblock %}
 
 {% block content %}
-<!--<div class="jumbotron">
-    <h1 class="display-3">MovieOn</h1>
-    <p class="lead">MovieOn You!</p>
-    <hr class="my-4">
-    <p>MovieOn items</p>
-
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card border-primary mb-3" style="max-width: 20rem;">
-                    <div class="card-header" align ="center">Movies</div>
-                    <div class="card-body">
-                    <h2 class="card-title" align="center">{{ num_movies }}</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card border-danger mb-3" style="max-width: 20rem;">
-                    <div class="card-header" align ="center">Directors</div>
-                    <div class="card-body">
-                    <h2 class="card-title" align="center">{{ num_directors }}</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card border-warning mb-3" style="max-width: 20rem;">
-                    <div class="card-header" align ="center">Genres</div>
-                    <div class="card-body">
-                    <h2 class="card-title" align="center">{{ num_genres }}</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
-
 <header class="masthead">
     <div class="container h-100">
         <div class="row h-100 align-items-center justify-content-center text-center">
@@ -56,7 +14,7 @@
                 
                 <form method="post" action="{% url 'movies' %}">
                     {% csrf_token %}
-                    <input name="q" type="search" class="font-weight-bold" placeholder="Watch Now" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Watch Now'" autofocus required><br><br>
+                    <input name="q" type="search" class="font-weight-bold" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'" autofocus required><br><br>
                     <button class="btn btn-primary btn-xl js-scroll-trigger" type="submit">Search</button>
                 </form>
                 
