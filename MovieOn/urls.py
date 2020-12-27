@@ -15,5 +15,6 @@ urlpatterns = [
     # path('director/add', director_controller.add_director, name='add_director'),
     # path('director/edit/<int:director_id>', director_controller.edit_director, name='edit_director'),
     # path('director/delete/<int:director_id>', director_controller.delete_director, name='delete_director'),
+    path('movie/<imdb_id>/comment/edit/<comment_id>', comment_controller.edit_comment, name='edit_comment'),
     path('movie/<imdb_id>/comment/delete/<comment_id>', comment_controller.delete_comment, name='delete_comment'),
 ]
