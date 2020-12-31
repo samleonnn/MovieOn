@@ -15,6 +15,7 @@ from MovieOn.models.director import Director
 from MovieOn.models.genre import Genre
 from MovieOn.models.ratings import Rating
 from MovieOn.models.comment import Comment
+from MovieOn.models.imdb import IMDB
 
 from MovieOn.forms import MovieForm, CommentForm
 
@@ -118,6 +119,8 @@ def movie_details(request, imdb_id):
         m.cast.set(cast_obj)
         m.genre.set(genre_obj)
         m.ratings.set(ratings_obj)
+
+        n, created = IMDB.objects.get_or_create(imdb_id=movie_data['imdbID'], movie=m)
         
         m.save()
         ourDB = False
