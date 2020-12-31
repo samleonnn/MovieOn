@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
@@ -16,7 +16,7 @@ def index(request):
         email = req['email']
 
         if password != verify:
-            error = 'Password Incorrect! Please try again'
+            error = 'Password is not match! Please try again'
         else:
             try: 
                 user = User.objects.get(username=username)
@@ -34,7 +34,7 @@ def index(request):
                     html_message = html_message,
                     fail_silently=True,
                 )
-                return HttpResponseRedirect('accounts/login')
+                return redirect('login')
     data = {
         'user_exists_error': error,
     }

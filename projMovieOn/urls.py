@@ -24,3 +24,6 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('verification/', include('verify_email.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+handler404 = 'MovieOn.controllers.404_controller.handler404'
+handler500 = 'MovieOn.controllers.500_controller.handler500'
