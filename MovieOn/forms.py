@@ -8,15 +8,13 @@ from MovieOn.models.comment import Comment
 
 class MovieForm(ModelForm):
     class Meta:
-        model = Movie  # model to use in form
-        # list of fields to be displayed
+        model = Movie
         fields = ['title', 'year', 'rated', 'datepublish', 'runtime', 'genre', 'director', 'writer','cast', 'synopsis', 'country', 'poster', 'ratings', 'imdbID','type']
 
 
 class DirectorForm(ModelForm):
     class Meta:
-        model = Director  # model to use in form
-        # list of fields to be displayed
+        model = Director
         fields = ['name', 'DoB']
 
 class GenreForm(ModelForm):

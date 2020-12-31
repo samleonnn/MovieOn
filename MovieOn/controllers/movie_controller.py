@@ -15,6 +15,7 @@ from MovieOn.models.director import Director
 from MovieOn.models.genre import Genre
 from MovieOn.models.ratings import Rating
 from MovieOn.models.comment import Comment
+from MovieOn.models.imdb import IMDB
 
 from MovieOn.forms import MovieForm, CommentForm
 
@@ -118,6 +119,8 @@ def movie_details(request, imdb_id):
         m.cast.set(cast_obj)
         m.genre.set(genre_obj)
         m.ratings.set(ratings_obj)
+
+        n, created = IMDB.objects.get_or_create(imdb_id=movie_data['imdbID'], movie=m)
         
         m.save()
         ourDB = False
@@ -132,36 +135,3 @@ def movie_details(request, imdb_id):
     template = loader.get_template('movie/movie_details.html')
 
     return HttpResponse(template.render(context, request))
-
-@login_required
-def add_movie(request):
-    if request.method == 'POST':
-        form = MovieForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('movies'))
-    else:
-        form = MovieForm()
-
-    context = {
-        'form': form
-    }
-    return render(request, 'movie/movie_form.html', context=context)
-
-@login_required
-def edit_movie(request, movie_id):
-    if request.method == 'POST':
-        movie = Movie.objects.get(pk=movie_id)
-        form = MovieForm(request.POST, instance=movie)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('movies'))
-    else:
-        movie = Movie.objects.get(pk=movie_id)
-        fields = model_to_dict(movie)
-        form = MovieForm(initial=fields, instance=movie)
-    context = {
-        'form': form,
-        'type': 'edit',
-    }
-    return render(request, 'movie/movie_form.html', context=context)

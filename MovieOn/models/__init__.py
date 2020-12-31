@@ -4,3 +4,4 @@ from .genre import Genre
 from .cast import Cast
 from .ratings import Rating
 from .comment import Comment
+from .imdb import IMDB
